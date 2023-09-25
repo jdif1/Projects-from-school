@@ -1,5 +1,4 @@
 /*
-Jeff DiFatta
 Project 2
 9/19/2021
 This File contains the Polynomial and Node classes, as well as constructors for both. It also contains an iterator,
