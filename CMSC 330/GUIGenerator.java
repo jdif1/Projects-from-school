@@ -1,5 +1,4 @@
 /*
-Jeff DiFatta
 CMSC 330
 This class contains the methods needed to read in the text file and then translate it into a java GUI.
 It contains two methods to assist in checking that the information is formatted correctly.
