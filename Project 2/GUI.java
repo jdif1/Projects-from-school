@@ -1,5 +1,4 @@
 /*
-Jeff DiFatta
 CMSC 335
 11/16/2021
 This file contains the GUI for the program. When the program is ran, the first panel the user
