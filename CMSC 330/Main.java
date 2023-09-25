@@ -1,5 +1,4 @@
 /*
-Jeff DiFatta
 CMSC 330
 This class contains the main method for the program. A GUIGenerator object is created and then a scanner is created,
 which calls to the GUIGenerator GetFile() method to select the file it will be reading. The scanner is then passed
