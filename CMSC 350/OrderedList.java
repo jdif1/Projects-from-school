@@ -1,5 +1,4 @@
 /*
-Jeff DiFatta
 Project 2
 9/19/2021
 This class has tow overloaded checkSorted methods. The second one compares the nodes in polynomials and the first one
