@@ -1,5 +1,4 @@
 /*
-Jeff DiFatta
 CMSC 335
 11/2/2021
 This class contains the constructor for a Circle object.
