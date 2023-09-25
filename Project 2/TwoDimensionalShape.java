@@ -1,5 +1,4 @@
 /*
-Jeff DiFatta
 CMSC 335
 11/16/2021
 The TwoDimensionalShape class has the area field used by its children
