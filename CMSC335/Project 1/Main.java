@@ -1,5 +1,4 @@
 /*
-Jeff DiFatta
 CMSC 335
 11/2/2021
 This class contains the main method for the program. It prompts the user to select a type of Shape
