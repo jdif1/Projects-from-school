@@ -1,0 +1,263 @@
+<!--Jeff DiFatta
+CMSC 405
+4/26/2022
+This file contains the HTML and javascript necessary to generate 6 different three-dimensional shapes
+based on what the user selects. The user can select the shape from the 6 radio buttons and then must
+click the button underneath to display the shape.
+-->
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type = "text/javascript">
+        /*
+        This function that determines what happens when the execute button is clicked. The scene is
+        cleared before each new shape is displayed, the actual drawing of the shapes and the adding of
+        their lighting is done by the shapes corresponding draw function.
+         */
+        function shapeSelect(){
+            let cube = document.getElementById('cubeRadio')
+            let sphere = document.getElementById('sphereRadio')
+            let cylinder = document.getElementById('cylinderRadio')
+            let torus = document.getElementById('torusRadio')
+            let cone = document.getElementById('coneRadio')
+            let shape6 = document.getElementById('dodecahedronRadio')
+
+            if (cube.checked === true){
+                scene.clear();
+                drawCube();
+            }
+            else if (sphere.checked === true){
+                scene.clear();
+                drawSphere();
+            }
+            else if (cylinder.checked === true){
+                scene.clear();
+                drawCylinder();
+            }
+            else if (torus.checked === true){
+                scene.clear();
+                drawTorus();
+            }
+            else if (cone.checked === true){
+                scene.clear();
+                drawCone()
+            }
+            else if (shape6.checked === true) {
+                scene.clear();
+                drawDodecahedron();
+            } else {
+                //displaying a message if user did not select any radio button
+                alert('No shape selected');
+            }
+        }
+    </script>
+</head>
+<body>
+
+<script src = three.js></script>
+
+<script>
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight);
+    camera.position.set(0,0,30);
+
+    const renderer = new THREE.WebGLRenderer({antialias: true});
+    renderer.setSize(window.innerWidth*.83, window.innerHeight*.83);
+    document.body.appendChild(renderer.domElement);
+
+    window.addEventListener('resize', function (){
+        let width = window.innerWidth* .83;
+        let height = window.innerHeight* .83;
+        renderer.setSize(width,height);
+        camera.aspect = width/height;
+        camera.updateProjectionMatrix();
+    });
+
+   function addPointLights(){
+       //This function adds six point lights around the shape.
+       let firstPointLight = new THREE.PointLight(0x404040, 1, 100);
+       firstPointLight.position.x = 25;
+       firstPointLight.position.y = 0;
+       firstPointLight.position.z = 0;
+       scene.add(firstPointLight)
+
+       let secondPointLight = new THREE.PointLight(0x404040, 1, 100);
+       secondPointLight.position.x = -25;
+       secondPointLight.position.y = 0;
+       secondPointLight.position.z = 0;
+       scene.add(secondPointLight)
+
+       let thirdPointLight = new THREE.PointLight(0x404040, 1, 100);
+       thirdPointLight.position.x = 0;
+       thirdPointLight.position.y = 25;
+       thirdPointLight.position.z = 0;
+       scene.add(thirdPointLight)
+
+       let fourthPointLight = new THREE.PointLight(0x404040, 1, 100);
+       fourthPointLight.position.x = 0;
+       fourthPointLight.position.y = 25;
+       fourthPointLight.position.z = 0;
+       scene.add(fourthPointLight)
+
+       let fifthPointLight = new THREE.PointLight(0x404040, 1, 100);
+       fifthPointLight.position.x = 0;
+       fifthPointLight.position.y = 0;
+       fifthPointLight.position.z = -25;
+       scene.add(fifthPointLight)
+
+       let sixthPointLight = new THREE.PointLight(0x404040, 1, 100);
+       sixthPointLight.position.x = 0;
+       sixthPointLight.position.y = 0;
+       sixthPointLight.position.z = 25;
+       scene.add(sixthPointLight)
+   }
+
+   function addAmbientLight(){
+       let ambientLight = new THREE.AmbientLight(0x404040, 2.00);
+       scene.add(ambientLight);
+   }
+
+   function addDirectionalLight(){
+
+       let directionalLight = new THREE.DirectionalLight(0xFFFFFF, 1);
+       directionalLight.position.set(0,0,1);
+       camera.add(directionalLight);
+   }
+
+
+    function drawCube() {
+
+       addPointLights();
+        let geometry = new THREE.BoxGeometry(15,15,15);
+        let material = new THREE.MeshPhongMaterial({ color: 0xFF0000 });
+        let cube = new THREE.Mesh(geometry, material);
+        cube.position.z = -5;
+
+        let animateCube = function() {
+            cube.rotation.x += 0.01;
+            cube.rotation.y = 45
+            renderer.render(scene,camera)
+            requestAnimationFrame(animateCube)
+        };
+        animateCube();
+        scene.add(cube);
+    }
+    function drawSphere() {
+
+        addAmbientLight();
+        let geometry = new THREE.SphereGeometry(20, 8, 6);
+        let material = new THREE.MeshPhongMaterial({ color: 0x00FFFF });
+        let sphere = new THREE.Mesh(geometry, material);
+        sphere.position.z = -5;
+
+        let animateSphere = function() {
+            sphere.rotation.x += 0.01;
+            sphere.rotation.y += 0.01;
+            renderer.render(scene,camera)
+            requestAnimationFrame(animateSphere)
+        };
+        animateSphere();
+        scene.add(sphere);
+    }
+    function drawCylinder() {
+
+        addPointLights();
+        addAmbientLight()
+        let geometry = new THREE.CylinderGeometry(15, 15, 15);
+        let material = new THREE.MeshPhongMaterial({ color: 0x888888 });
+        let cylinder = new THREE.Mesh(geometry, material);
+        cylinder.position.z = -5;
+
+        let animateCylinder = function() {
+            cylinder.rotation.x += 0.01;
+            cylinder.rotation.y += 0.01;
+            cylinder.rotation.z += 0.01;
+            renderer.render(scene,camera)
+            requestAnimationFrame(animateCylinder)
+        };
+        animateCylinder();
+        scene.add(cylinder);
+    }
+    function drawTorus() {
+
+        addPointLights();
+        let geometry = new THREE.TorusGeometry(10, 3, 16, 100);
+        let material = new THREE.MeshPhongMaterial({ color: 0x00FF00 });
+        let torus = new THREE.Mesh(geometry, material);
+        torus.position.z = -5;
+
+        let animateTorus = function() {
+            torus.rotation.y += 0.01;
+            torus.rotation.z += 0.01;
+            renderer.render(scene,camera)
+            requestAnimationFrame(animateTorus)
+        };
+        animateTorus();
+        scene.add(torus);
+    }
+
+    function drawCone() {
+
+        addAmbientLight();
+        let geometry = new THREE.ConeGeometry( 5, 20, 32 );
+        let material = new THREE.MeshPhongMaterial({ color: 0x0000FF });
+        let cone = new THREE.Mesh(geometry, material);
+        cone.position.z = -5;
+
+        let animateCone = function() {
+
+            cone.rotation.x += 0.01;
+            cone.rotation.z += 0.01;
+            renderer.render(scene,camera)
+            requestAnimationFrame(animateCone)
+        };
+        animateCone();
+        scene.add(cone);
+    }
+
+    function drawDodecahedron() {
+
+        addAmbientLight();
+        addPointLights();
+        let geometry = new THREE.DodecahedronGeometry(10, 0)
+        let material = new THREE.MeshPhongMaterial({ color: 0xFFFF00 });
+        let dodecahedron = new THREE.Mesh(geometry, material);
+        dodecahedron.position.z = -5;
+
+        let animateDodecahedron = function() {
+
+            dodecahedron.rotation.x += 0.01;
+            dodecahedron.rotation.x += 0.01;
+            dodecahedron.rotation.z += 0.02;
+            renderer.render(scene,camera)
+            requestAnimationFrame(animateDodecahedron)
+        };
+        animateDodecahedron();
+        scene.add(dodecahedron);
+    }
+</script>
+
+<label for='cubeRadio'></label>
+<input id="cubeRadio" name = 'radioGroup' type = 'radio' value= 'shape 1'> Cube </input><br>
+
+<label for='sphereRadio'></label>
+<input id='sphereRadio' name = 'radioGroup' type = 'radio' value= 'shape 2'> Sphere </input><br>
+
+<label for='cylinderRadio'></label>
+<input id="cylinderRadio" name = 'radioGroup' type = 'radio' value= 'shape 3'> Cylinder </input><br>
+
+<label for='torusRadio'></label>
+<input id="torusRadio" name = 'radioGroup' type = 'radio' value= 'shape 4'> Torus </input><br>
+
+<label for='coneRadio'></label>
+<input id="coneRadio" name = 'radioGroup' type = 'radio' value= 'shape 5'> Cone </input><br>
+
+<label for='dodecahedronRadio'></label>
+<input id='dodecahedronRadio' name = 'radioGroup' type = 'radio' value= 'shape 6'> Dodecahedron </input><br>
+
+<button onclick='shapeSelect()' id = 'executeButton'>Execute</button>
+</body>
+</html>
