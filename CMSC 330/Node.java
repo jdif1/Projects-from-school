@@ -1,5 +1,4 @@
 /*
-Jeff DiFatta
 CMSC 330
 This class contains the data structure used to keep track of which panels are attached to which.
 This is accomplished by storing their int value in a node and then having any subpanels added as child nodes.
