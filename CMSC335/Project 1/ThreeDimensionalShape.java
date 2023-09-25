@@ -1,5 +1,4 @@
 /*
-Jeff DiFatta
 CMSC 335
 11/2/2021
 The ThreeDimensionalShape class has the volume field used by its children
